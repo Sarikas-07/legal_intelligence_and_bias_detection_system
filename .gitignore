@@ -1,0 +1,23 @@
+
+# Python virtual environments
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Secrets and environment variables
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Generated databases
+database/*.db
+database/*.sqlite
+database/*.sqlite3
+
+# Logs and local editor files
+*.log
+.vscode/
