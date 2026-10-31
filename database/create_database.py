@@ -274,17 +274,25 @@ def create_database():
     else:
         print("[DB] Legal sections already exist – skipping insert.")
 
-    # ── Create default admin account ──────────────────────────────────────────
-    cur.execute("SELECT COUNT(*) FROM users WHERE username = 'admin'")
-    if cur.fetchone()[0] == 0:
-        cur.execute(
-            "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
-            ("admin", hash_password("admin123"), "admin"),
-        )
-        print("[DB] Default admin account created  (admin / admin123).")
 
-    conn.commit()
-    conn.close()
+    
+    # Create an admin account only when credentials are configured securely.
+    admin_username = os.environ.get("LEGAL_ADMIN_USERNAME")
+    admin_password = os.environ.get("LEGAL_ADMIN_PASSWORD")
+
+    if admin_username and admin_password:
+        cur.execute(
+            "SELECT COUNT(*) FROM users WHERE username = ?",
+            (admin_username,),
+        )
+        if cur.fetchone()[0] == 0:
+            cur.execute(
+                "INSERT INTO users (username, password_hash, role) "
+                "VALUES (?, ?, ?)",
+                (admin_username, hash_password(admin_password), "admin"),
+            )
+            print("[DB] Configured admin account created.")
+
     print("[DB] Database ready.")
 
 

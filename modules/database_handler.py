@@ -17,16 +17,19 @@ DB_PATH = os.path.join(_BASE, "database", "legal_sections.db")
 # ─────────────────────────────────────────────────────────────────────────────
 # CONNECTION HELPER
 # ─────────────────────────────────────────────────────────────────────────────
+
 def get_connection():
-    """Return a sqlite3 connection with row_factory set for dict-like access."""
+    """Return a SQLite connection, initializing the database if missing."""
     if not os.path.exists(DB_PATH):
-        raise FileNotFoundError(
-            f"Database not found at {DB_PATH}.\n"
-            "Please run:  python database/create_database.py"
-        )
+        from database.create_database import create_database
+
+        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+        create_database()
+
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
+
 
 
 # ─────────────────────────────────────────────────────────────────────────────
