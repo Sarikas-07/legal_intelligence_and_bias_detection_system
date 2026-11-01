@@ -18,13 +18,18 @@ DB_PATH = os.path.join(_BASE, "database", "legal_sections.db")
 # CONNECTION HELPER
 # ─────────────────────────────────────────────────────────────────────────────
 
+_DB_READY = False  # initialise once per app process
+
+
 def get_connection():
-    """Return a SQLite connection, initializing the database if missing."""
-    if not os.path.exists(DB_PATH):
+    """Return a SQLite connection, making sure the schema/data exist first."""
+    global _DB_READY
+    if not _DB_READY:
         from database.create_database import create_database
 
         os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-        create_database()
+        create_database()  # safe to repeat: CREATE IF NOT EXISTS, seeds only if empty
+        _DB_READY = True
 
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
@@ -108,20 +113,26 @@ def verify_password(plain: str, hashed: str) -> bool:
         return False
 
 
-def create_user(username: str, plain_password: str, role: str = "user") -> bool:
-    """Register a new user.  Returns True on success, False if username taken."""
+def create_user(username: str, plain_password: str, role: str = "user") -> str:
+    """Register a new user. Returns "ok", "duplicate" (username taken) or "error"."""
     try:
         hashed = bcrypt.hashpw(plain_password.encode(), bcrypt.gensalt()).decode()
         conn   = get_connection()
-        conn.execute(
-            "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
-            (username, hashed, role),
-        )
-        conn.commit()
-        conn.close()
-        return True
-    except sqlite3.IntegrityError:
-        return False  # username already exists
+        try:
+            conn.execute(
+                "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
+                (username, hashed, role),
+            )
+            conn.commit()
+        finally:
+            conn.close()
+        return "ok"
+    except sqlite3.IntegrityError as e:
+        if "users.username" in str(e):      # UNIQUE constraint on username
+            return "duplicate"
+        return "error"
+    except Exception:
+        return "error"
 
 
 def get_all_users():

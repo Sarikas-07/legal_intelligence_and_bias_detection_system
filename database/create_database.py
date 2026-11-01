@@ -293,8 +293,11 @@ def create_database():
             )
             print("[DB] Configured admin account created.")
 
+        conn.commit()
+    conn.close()
     print("[DB] Database ready.")
 
 
 if __name__ == "__main__":
     create_database()
+

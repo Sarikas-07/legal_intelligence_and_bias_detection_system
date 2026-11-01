@@ -154,7 +154,7 @@ def show_login():
                     st.rerun()
                 else:
                     st.error("Invalid username or password.")
-            st.caption("Default admin: **admin** / **admin123**")
+            st.caption("New here? Register an account using the Register tab.")
 
         # ── REGISTER ──────────────────────────────────────────────────────────
         with tab_signup:
@@ -170,12 +170,13 @@ def show_login():
                 elif len(new_pass) < 6:
                     st.warning("Password must be at least 6 characters.")
                 else:
-                    ok = create_user(new_user, new_pass, role="user")
-                    if ok:
+                    result = create_user(new_user, new_pass, role="user")
+                    if result == "ok":
                         st.success("Account created! Please login.")
-                    else:
+                    elif result == "duplicate":
                         st.error("Username already taken. Choose another.")
-
+                    else:
+                        st.error("Registration failed due to a database error. Please try again.")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # ── SIDEBAR NAVIGATION ────────────────────────────────────────────────────────
