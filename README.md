@@ -1,229 +1,215 @@
-# ⚖️ AI-Powered Legal Intelligence, IPC Recommendation & Bias Detection System
+ # ⚖️ AI-Powered Legal Intelligence, IPC Recommendation & Bias Detection System
 
-> **B.Tech AI & Data Science — Mini / Major Project**
-> For educational and research demonstration purposes only.
+**B.Tech AI & Data Science — Mini / Major Project**
 
----
+An educational and research demonstration project built using Python and Streamlit.
+
+## 🚀 Live Demo
+
+**[Launch the Legal Intelligence and Bias Detection System](https://legal-intelligence.streamlit.app/)**
 
 ## 📌 Project Overview
 
-An intelligent, AI-powered legal assistance dashboard built with **Python + Streamlit** that can:
+An AI-powered legal assistance dashboard designed to analyze legal complaints and FIR descriptions, recommend potentially relevant legal sections, summarize complaint text, and detect sentiment and language bias.
 
-- Accept legal complaints / FIR descriptions / uploaded documents
-- Automatically classify the crime type
-- Recommend applicable **IPC / BNS legal sections** with punishment details
-- Generate an **AI summary** of the complaint
-- Perform **sentiment analysis** and **language bias detection**
-- Export a complete **PDF/TXT legal analysis report**
-- Provide **role-based access** (Admin / User) with secure login
+The system can:
 
-> ⚠️ **DISCLAIMER:** This system provides AI-generated legal suggestions and should NOT be considered official legal advice. It is built purely for educational purposes.
+- Accept legal complaints, FIR descriptions, and uploaded documents.
+- Classify crime-related text.
+- Recommend potentially applicable IPC/BNS sections with punishment details.
+- Generate AI-assisted complaint summaries.
+- Perform sentiment analysis and language bias detection.
+- Export legal analysis reports.
+- Provide role-based access for administrators and users.
 
----
+> **Disclaimer:** This system generates educational suggestions, not official legal advice. Its outputs may be incomplete or inaccurate and should be verified against authoritative legal sources and by a qualified legal professional.
 
 ## 🎯 Key Features
 
 | Feature | Description |
 |---|---|
-| 🔐 Authentication | Secure login / registration with bcrypt password hashing |
-| 👤 Role-Based Access | Admin and User dashboards |
-| 📄 Document Input | Type text, upload PDF or TXT file |
-| ⚖️ IPC/BNS Recommendations | TF-IDF + keyword matching against 30+ legal sections |
-| 📝 AI Summarisation | Extractive summariser (optional: DistilBART transformer) |
-| 🔑 Keyword Extraction | Legal vocabulary boosted frequency analysis |
-| 💬 Sentiment Analysis | TextBlob polarity + subjectivity scores |
-| 🚨 Bias Detection | Gender, aggressive language, and emotional bias scoring |
-| 📊 Visualisations | Gauges, bar charts, pie charts (Plotly) |
-| 📤 Export Report | Download full analysis as TXT file |
-| 🗄️ SQLite Database | 30+ IPC/BNS sections, user accounts, saved reports |
-
----
+| Authentication | Login and registration with bcrypt password hashing |
+| Role-Based Access | Admin and user dashboards |
+| Document Input | Enter text or upload PDF/TXT files |
+| IPC/BNS Recommendations | TF-IDF and keyword-based legal section matching |
+| AI Summarisation | Extractive summarisation; optional transformer-based summarisation |
+| Keyword Extraction | Legal keyword and entity extraction |
+| Sentiment Analysis | TextBlob polarity and subjectivity analysis |
+| Bias Detection | Gender-related, aggressive-language, and emotional-bias indicators |
+| Visualisations | Charts and analysis visualisations using Plotly |
+| Report Export | Download analysis reports as TXT files |
+| Database | SQLite storage for legal sections, user accounts, and reports |
 
 ## 🛠️ Technologies Used
 
-| Category | Library / Tool |
+| Category | Technology |
 |---|---|
 | Frontend | Streamlit |
 | Backend | Python 3.10+ |
 | Database | SQLite3 |
 | NLP | NLTK, TextBlob, scikit-learn |
-| Summarisation | Extractive (built-in) / HuggingFace Transformers (optional) |
+| Summarisation | Extractive summariser / optional Hugging Face Transformers |
 | PDF Processing | PyPDF2 |
 | Visualisation | Plotly |
-| Auth | bcrypt |
-
----
+| Authentication | bcrypt |
 
 ## 📁 Project Structure
 
-```
+```text
 legal_ai_project/
-│
-├── app.py                        ← Main Streamlit application
+├── app.py
 ├── requirements.txt
 ├── README.md
-│
 ├── database/
-│   ├── create_database.py        ← Run once to create DB
-│   └── legal_sections.db         ← Auto-created SQLite database
-│
+│   ├── create_database.py
+│   └── legal_sections.db
 ├── modules/
-│   ├── database_handler.py       ← All DB read/write operations
-│   ├── pdf_reader.py             ← PDF & TXT text extraction
-│   ├── preprocessing.py          ← Text cleaning & tokenisation
-│   ├── summarizer.py             ← Extractive + transformer summariser
-│   ├── keyword_extractor.py      ← Legal keyword & entity extraction
-│   ├── sentiment_analysis.py     ← TextBlob sentiment analysis
-│   ├── bias_detector.py          ← Gender / aggressive / emotional bias
-│   ├── ipc_recommender.py        ← Crime classification + IPC matching
-│   ├── legal_matcher.py          ← TF-IDF cosine section matching
-│   └── visualization.py          ← Plotly chart generators
-│
-├── data/                         ← (optional) extra datasets
-├── outputs/                      ← Downloaded reports stored here
-└── assets/                       ← Images / logos
+│   ├── database_handler.py
+│   ├── pdf_reader.py
+│   ├── preprocessing.py
+│   ├── summarizer.py
+│   ├── keyword_extractor.py
+│   ├── sentiment_analysis.py
+│   ├── bias_detector.py
+│   ├── ipc_recommender.py
+│   ├── legal_matcher.py
+│   └── visualization.py
+├── data/
+├── outputs/
+├── assets/
+└── screenshots/
 ```
 
----
+*The structure above describes the expected project layout; optional folders and files may vary in the actual repository.*
 
-## ⚡ Installation Guide
+## ⚡ Installation and Local Setup
 
-### Step 1 — Clone / Download the project
+### 1. Clone the repository
 
 ```bash
-# If using git
-git clone <your-repo-url>
-cd legal_ai_project
-
-# Or just extract the zip and open in VS Code
+git clone https://github.com/Sarikas-07/legal_intelligence_and_bias_detection_system.git
+cd legal_intelligence_and_bias_detection_system
 ```
 
-### Step 2 — Create a Python virtual environment (recommended)
+### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
+```
 
-# Activate on Windows
+On Windows:
+
+```powershell
 venv\Scripts\activate
+```
 
-# Activate on macOS / Linux
+On macOS/Linux:
+
+```bash
 source venv/bin/activate
 ```
 
-### Step 3 — Install dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4 — Download NLTK data (auto on first run, or manually)
-
-```python
-python -c "import nltk; nltk.download('all')"
-```
-
-### Step 5 — Initialise the database
+### 4. Initialise the database
 
 ```bash
 python database/create_database.py
 ```
 
-This creates `database/legal_sections.db` with:
-- 30+ IPC / BNS legal sections
-- Default admin account: `admin` / `admin123`
+Run this only when appropriate for your local database setup. Do not overwrite an existing database containing accounts or reports.
 
-### Step 6 — Run the app
+### 5. Launch the application
 
 ```bash
 streamlit run app.py
 ```
 
-Open your browser at: **http://localhost:8501**
+Streamlit will display a local URL, usually `http://localhost:8501`.
 
----
+## 🔐 Authentication and Security
 
-## 🖥️ VS Code Setup
-
-1. Install the **Python** extension in VS Code
-2. Select your virtual environment as the Python interpreter (`Ctrl+Shift+P` → "Python: Select Interpreter")
-3. Open a terminal in VS Code (`Ctrl+\``)
-4. Follow Steps 2–6 above
-
----
-
-## 🔐 Default Credentials
-
-| Role | Username | Password |
-|---|---|---|
-| Admin | `admin` | `admin123` |
-
-> ⚠️ Change the admin password immediately for any production or demo use.
-
----
+- Passwords are hashed using bcrypt.
+- The application supports administrator and user roles.
+- Account availability and administrator setup depend on the configured database and deployment environment.
+- Do not publish real passwords, API keys, database files containing personal information, or secret configuration files.
+- Configure administrator credentials securely and change any default or publicly exposed password.
 
 ## 🧪 Sample Test Cases
 
-### Test 1 — Robbery + Assault
-```
-Input: "A man attacked the shopkeeper with an iron rod, injured him badly, and stole Rs. 50,000 from the cash register."
-Expected: IPC 390 (Robbery), IPC 323 (Assault), IPC 379 (Theft)
-```
+These examples illustrate possible test inputs. Actual recommendations depend on the application's matching logic and legal reference data.
+
+### Test 1 — Robbery and Assault
+
+**Input:**
+
+> A man attacked a shopkeeper with an iron rod, injured him, and stole money from the cash register.
+
+**Expected evaluation:** Check whether the system identifies potentially relevant offences involving robbery, theft, and causing hurt.
 
 ### Test 2 — Cybercrime
-```
-Input: "The accused hacked into the victim's email account using a phishing link and transferred money from the linked bank account."
-Expected: IT Act 66 (Hacking), IT Act 66D (Cheating by Impersonation), IPC 420 (Fraud)
-```
+
+**Input:**
+
+> An individual used a phishing link to access a victim's email account and transfer money from a linked bank account.
+
+**Expected evaluation:** Check for potentially relevant information-technology and financial-fraud provisions.
 
 ### Test 3 — Domestic Violence
-```
-Input: "The husband beats his wife every day and demands Rs. 2 lakh more dowry. He has threatened to kill her if she files a complaint."
-Expected: IPC 498A (Dowry Harassment), IPC 304B (Dowry Death), IPC 506 (Criminal Intimidation)
-```
+
+**Input:**
+
+> A husband repeatedly assaults his wife, demands additional dowry, and threatens her.
+
+**Expected evaluation:** Check whether the system identifies potentially relevant domestic-abuse, dowry-related, and intimidation provisions.
 
 ### Test 4 — Kidnapping
-```
-Input: "An unknown person forcefully abducted a 10-year-old girl from outside her school and demanded a ransom of Rs. 10 lakh."
-Expected: IPC 363 (Kidnapping), IPC 364A (Kidnapping for Ransom)
-```
 
----
+**Input:**
+
+> An unknown person abducted a child outside school and demanded a ransom.
+
+**Expected evaluation:** Check for potentially relevant kidnapping and ransom-related provisions.
+
+**Legal accuracy note:** These are illustrative scenarios, not definitive legal classifications. Applicable provisions depend on the facts, jurisdiction, and law in force. IPC and BNS provisions are not interchangeable in every circumstance.
 
 ## 📸 Screenshots
 
-*(Replace with actual screenshots after running)*
+Screenshots of the login page, dashboard, legal analysis, bias detection, and report export can be added to the `screenshots/` directory and linked here.
 
-| Screen | Description |
-|---|---|
-| Login Page | Secure login / register |
-| Analyze Page | Input area + sample complaints |
-| IPC Sections Tab | Match scores + punishment |
-| Bias Detection Tab | Gauge + breakdown chart |
-| Export Tab | Report download |
+Example:
 
----
+```markdown
+![Login Page](screenshots/login.png)
+![Dashboard](screenshots/dashboard.png)
+![Legal Analysis](screenshots/analysis.png)
+```
+
+Use actual screenshots from the current application.
 
 ## 🚀 Future Enhancements
 
-1. 🤖 **AI Legal Chatbot** — Conversational legal assistant using LLM APIs
-2. 🎙️ **Voice Complaint Analysis** — Speech-to-text input
-3. 🌐 **Real-Time Legal Search** — Fetch latest amendments from LegalZilla / IndianKanoon
-4. 🔍 **Explainable AI** — SHAP / LIME explanations for section matching
-5. ⚖️ **Court Judgment Prediction** — Predict likely verdict based on similar cases
-6. 🌏 **Multi-Language Support** — Hindi, Tamil, Telugu legal text support
-7. 📱 **Mobile App** — React Native / Flutter frontend
-8. 🔗 **Blockchain Evidence Chain** — Tamper-proof complaint storage
-
----
+1. AI-powered legal chatbot.
+2. Voice-based complaint analysis.
+3. Retrieval of updated legal information from authoritative sources.
+4. Explainable AI for legal section matching.
+5. Multilingual legal text analysis.
+6. Mobile application interface.
+7. Evidence integrity and audit-history features.
 
 ## 👨‍💻 Developer Notes
 
-- The transformer summariser (`sshleifer/distilbart-cnn-12-6`) will download automatically on first use (~500MB). Set `use_transformer=False` in `app.py` to skip.
-- For GPU acceleration add `device=0` to the `pipeline()` call in `summarizer.py`.
-- The IPC section database can be extended by editing `database/create_database.py` and re-running it.
+- The optional transformer summariser may download a model when first used and may require substantial memory and download time.
+- Extractive summarisation can be used when transformer summarisation is disabled.
+- Legal reference data should be checked against authoritative sources and maintained as laws change.
+- SQLite is suitable for local demonstration use, but a hosted persistent database may be more appropriate for a multi-user production deployment.
 
----
+## 📄 License and Intended Use
 
-## 📄 License
+This project was developed for educational and research demonstration purposes as part of a B.Tech AI & Data Science curriculum.
 
-This project is built for **educational purposes** under the B.Tech AI & Data Science curriculum. Not for commercial use.
+It is not a substitute for professional legal advice. Verify all legal outputs independently before relying on them.
